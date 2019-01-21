@@ -5,6 +5,11 @@ Express: Run and create server.
 Start Server: npm run start
 
 Run MongoDB Server[in another terminal]: mongod 
+
+Testing with Postman
+GET: http://localhost:3000/tasks
+PUT: 
+DELETE:
 */
 
 var express = require('express'),
@@ -21,6 +26,11 @@ mongoose.connect('mongodb://localhost/Tododb');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//Add default 404 response if incorrect API URL
+app.use(function(req, res) {
+  res.status(404).send({url: req.originalUrl + ' not found'})
+});
 
 
 var routes = require('./api/routes/todoListRoutes'); //importing route
